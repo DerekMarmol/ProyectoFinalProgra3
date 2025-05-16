@@ -1,0 +1,144 @@
+@model SuperBodega.ECommerceWeb.Models.CartViewModel
+
+@{
+    ViewData["Title"] = "Carrito de Compras";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Carrito de Compras</h1>
+    
+    @if (Model.Items.Count == 0)
+    {
+        <div class="text-center py-5">
+            <i class="bi bi-cart-x display-1 text-muted mb-3"></i>
+            <h2>Tu carrito está vacío</h2>
+            <p class="lead">Parece que aún no has añadido productos a tu carrito.</p>
+            <a href="@Url.Action("Index", "Shop")" class="btn btn-primary btn-lg mt-3">
+                <i class="bi bi-shop me-2"></i> Continuar comprando
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0">Productos (@Model.ItemCount)</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="row mb-4 border-bottom pb-4">
+                                <div class="col-md-2 col-4">
+                                    <img src="https://via.placeholder.com/100x100?text=@item.ProductName" class="img-fluid rounded" alt="@item.ProductName">
+                                </div>
+                                <div class="col-md-3 col-8">
+                                    <h5 class="text-truncate">@item.ProductName</h5>
+                                    <p class="small text-muted">SKU: SB-@item.ProductId</p>
+                                </div>
+                                <div class="col-md-2 col-4">
+                                    <h6>Precio</h6>
+                                    <p class="text-primary">@item.ProductPrice.ToString("C")</p>
+                                </div>
+                                <div class="col-md-3 col-5">
+                                    <h6>Cantidad</h6>
+                                    <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="d-flex align-items-center">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control form-control-sm me-2" style="width: 70px;" />
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-2 col-3 text-end">
+                                    <h6>Total</h6>
+                                    <p class="text-primary fw-bold">@item.TotalPrice.ToString("C")</p>
+                                </div>
+                                <div class="col-md-1 col-2 text-end">
+                                    <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                        
+                        <div class="d-flex justify-content-between align-items-center pt-3">
+                            <a href="@Url.Action("Index", "Shop")" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left me-2"></i> Continuar comprando
+                            </a>
+                            
+                            <form method="post" action="@Url.Action("ClearCart", "Cart")" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="bi bi-trash me-2"></i> Vaciar carrito
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0">Resumen del pedido</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Subtotal
+                                <span>@Model.Total.ToString("C")</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Envío
+                                <span>Gratis</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0 pb-0">
+                                Impuestos
+                                <span>@((Model.Total * 0.16m).ToString("C"))</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Total</strong>
+                                    <p class="mb-0 text-muted">(IVA incluido)</p>
+                                </div>
+                                <span class="h4 mb-0 text-primary">@((Model.Total * 1.16m).ToString("C"))</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="@Url.Action("Checkout", "Cart")" class="btn btn-primary btn-lg w-100">
+                            <i class="bi bi-credit-card me-2"></i> Proceder al pago
+                        </a>
+                        
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-center mb-2">
+                                <span class="text-muted">Métodos de pago aceptados:</span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <i class="bi bi-credit-card fs-3 mx-2" title="Tarjeta de crédito"></i>
+                                <i class="bi bi-paypal fs-3 mx-2" title="PayPal"></i>
+                                <i class="bi bi-cash-stack fs-3 mx-2" title="Transferencia bancaria"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="mb-3">¿Necesitas ayuda?</h5>
+                        <p class="mb-0">
+                            <i class="bi bi-telephone-fill text-primary me-2"></i> Llámanos al 1-800-BODEGA
+                        </p>
+                        <p>
+                            <i class="bi bi-envelope-fill text-primary me-2"></i> 
+                            <a href="mailto:ayuda@superbodega.com">ayuda@superbodega.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

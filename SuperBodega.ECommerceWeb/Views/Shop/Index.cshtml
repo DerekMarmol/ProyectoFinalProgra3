@@ -1,0 +1,135 @@
+@model IEnumerable<SuperBodega.ECommerceWeb.Models.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Catálogo de Productos";
+}
+
+<div class="bg-primary text-white py-4 mb-4">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Nuestros Productos</h1>
+        <p class="lead">Explora nuestra amplia variedad de productos de alta calidad.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="my-0">Categorías</h4>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="@Url.Action("Index", "Shop")" class="list-group-item list-group-item-action @(ViewBag.CurrentCategory == 0 ? "active" : "")">
+                        <i class="bi bi-grid me-2"></i> Todas las categorías
+                    </a>
+                    @foreach (var category in (List<SuperBodega.ECommerceWeb.Models.CategoryViewModel>)ViewBag.Categories)
+                    {
+                        <a href="@Url.Action("Index", "Shop", new { categoryId = category.Id })" 
+                           class="list-group-item list-group-item-action @(ViewBag.CurrentCategory == category.Id ? "active" : "")">
+                            <i class="bi bi-tag me-2"></i> @category.Name
+                        </a>
+                    }
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="my-0">Ayuda</h4>
+                </div>
+                <div class="card-body">
+                    <p>¿Necesitas asistencia con tu compra?</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i> 1-800-BODEGA</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i> ayuda@superbodega.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h4">@(ViewBag.CurrentCategory == 0 ? "Todos los productos" : ((List<SuperBodega.ECommerceWeb.Models.CategoryViewModel>)ViewBag.Categories).FirstOrDefault(c => c.Id == ViewBag.CurrentCategory)?.Name)</h2>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ordenar por
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                        <li><a class="dropdown-item" href="#">Más reciente</a></li>
+                        <li><a class="dropdown-item" href="#">Precio: menor a mayor</a></li>
+                        <li><a class="dropdown-item" href="#">Precio: mayor a menor</a></li>
+                        <li><a class="dropdown-item" href="#">Nombre A-Z</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row">
+                @if (Model.Any())
+                {
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="position-relative">
+                                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                    {
+                                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <img src="https://via.placeholder.com/300x200?text=@product.Name" class="card-img-top" alt="@product.Name">
+                                    }
+                                    <span class="position-absolute top-0 end-0 badge bg-primary m-2">
+                                        @product.CategoryName
+                                    </span>
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <p class="card-text text-truncate" title="@product.Description">@product.Description</p>
+                                    <div class="mt-auto">
+                                        <p class="h4 text-primary mb-3">@product.Price.ToString("C")</p>
+                                        <div class="d-flex justify-content-between">
+                                            <a href="@Url.Action("Details", "Shop", new { id = product.Id })" class="btn btn-outline-secondary">Ver detalles</a>
+                                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                                <input type="hidden" name="productId" value="@product.Id" />
+                                                <input type="hidden" name="quantity" value="1" />
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="bi bi-cart-plus"></i> Agregar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            No se encontraron productos en esta categoría.
+                        </div>
+                    </div>
+                }
+            </div>
+            
+            <!-- Paginación -->
+            @{
+                var prevPage = ViewBag.CurrentPage > 1 ? ViewBag.CurrentPage - 1 : 1;
+                var nextPage = ViewBag.CurrentPage + 1;
+            }
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Index", "Shop", new { categoryId = ViewBag.CurrentCategory, page = prevPage, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">@ViewBag.CurrentPage</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Shop", new { categoryId = ViewBag.CurrentCategory, page = nextPage, pageSize = ViewBag.PageSize })" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
