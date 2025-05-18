@@ -1,0 +1,26 @@
+@model SuperBodega.AdminWeb.Models.CategoryViewModel
+
+@{
+    ViewData["Title"] = "Eliminar Categoría";
+}
+
+<h1>Eliminar Categoría</h1>
+
+<h3>¿Está seguro que desea eliminar esta categoría?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        <dt class="col-sm-2">Nombre</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+        <dt class="col-sm-2">Descripción</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
