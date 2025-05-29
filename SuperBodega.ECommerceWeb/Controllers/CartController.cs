@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
@@ -202,6 +203,23 @@ namespace SuperBodega.ECommerceWeb.Controllers
                 
                 if (saleResponse.IsSuccessStatusCode)
                 {
+                    var saleResponseContent = await saleResponse.Content.ReadAsStringAsync(); // Nombre cambiado aquí
+                    var sale = JsonSerializer.Deserialize<JsonElement>(saleResponseContent, 
+                                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                                
+                    // Llamar a un endpoint específico para enviar el correo
+                    var emailRequest = new
+                    {
+                        SaleId = sale.GetProperty("id").GetInt32(),
+                        CustomerEmail = model.Email,
+                        CustomerName = $"{model.FirstName} {model.LastName}"
+                    };
+                    
+                    var emailJson = JsonSerializer.Serialize(emailRequest);
+                    var emailContent = new StringContent(emailJson, Encoding.UTF8, "application/json");
+                    
+                    await client.PostAsync("api/notifications/send-order-confirmation", emailContent);
+                    
                     // Limpiar el carrito
                     HttpContext.Session.Remove(CartSessionKey);
                     

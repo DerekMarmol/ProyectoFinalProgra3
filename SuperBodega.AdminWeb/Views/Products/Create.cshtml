@@ -4,52 +4,99 @@
     ViewData["Title"] = "Crear Producto";
 }
 
-<h1>Crear Producto</h1>
-
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mb-3">
-                <label asp-for="Name" class="control-label">Nombre</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-box-open me-2"></i>Crear Nuevo Producto
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label asp-for="Name" class="form-label fw-bold">Nombre</label>
+                                    <input asp-for="Name" class="form-control" placeholder="Ingrese el nombre del producto" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                
+                                <div class="form-group mb-4">
+                                    <label asp-for="Description" class="form-label fw-bold">Descripción</label>
+                                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Ingrese una descripción detallada"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Price" class="form-label fw-bold">Precio</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input asp-for="Price" class="form-control" placeholder="0.00" />
+                                            </div>
+                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Stock" class="form-label fw-bold">Stock</label>
+                                            <input asp-for="Stock" class="form-control" placeholder="0" />
+                                            <span asp-validation-for="Stock" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label asp-for="ImageUrl" class="form-label fw-bold">URL de Imagen</label>
+                                    <input asp-for="ImageUrl" class="form-control" placeholder="https://ejemplo.com/imagen.jpg" />
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                    <small class="text-muted">Ingrese la URL de una imagen para el producto</small>
+                                </div>
+                                
+                                <div class="form-group mb-4">
+                                    <label asp-for="CategoryId" class="form-label fw-bold">Categoría</label>
+                                    <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
+                                        <option value="">-- Seleccione una categoría --</option>
+                                    </select>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                                
+                                <div class="form-group mb-4">
+                                    <label asp-for="SupplierId" class="form-label fw-bold">Proveedor</label>
+                                    <select asp-for="SupplierId" class="form-select" asp-items="ViewBag.Suppliers">
+                                        <option value="">-- Seleccione un proveedor --</option>
+                                    </select>
+                                    <span asp-validation-for="SupplierId" class="text-danger"></span>
+                                </div>
+                                
+                                <div class="card bg-light mt-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="fas fa-info-circle me-2"></i>Información</h6>
+                                        <p class="card-text mb-0">Todos los campos son obligatorios excepto la URL de imagen.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Volver
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Guardar Producto
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="Description" class="control-label">Descripción</label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Price" class="control-label">Precio</label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Stock" class="control-label">Stock</label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="ImageUrl" class="control-label">URL de Imagen</label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="CategoryId" class="control-label">Categoría</label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="SupplierId" class="control-label">Proveedor</label>
-                <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.Suppliers"></select>
-                <span asp-validation-for="SupplierId" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

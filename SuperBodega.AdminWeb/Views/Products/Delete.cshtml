@@ -4,31 +4,74 @@
     ViewData["Title"] = "Eliminar Producto";
 }
 
-<h1>Eliminar Producto</h1>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-trash-alt me-2"></i>Confirmar Eliminación
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>¿Está seguro que desea eliminar este producto?</strong>
+                        <p class="mb-0 mt-2">Esta acción no se puede deshacer.</p>
+                    </div>
 
-<h3>¿Está seguro que desea eliminar este producto?</h3>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-3">ID</dt>
-        <dd class="col-sm-9">@Model.Id</dd>
-        <dt class="col-sm-3">Nombre</dt>
-        <dd class="col-sm-9">@Model.Name</dd>
-        <dt class="col-sm-3">Descripción</dt>
-        <dd class="col-sm-9">@Model.Description</dd>
-        <dt class="col-sm-3">Precio</dt>
-        <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
-        <dt class="col-sm-3">Stock</dt>
-        <dd class="col-sm-9">@Model.Stock</dd>
-        <dt class="col-sm-3">Categoría</dt>
-        <dd class="col-sm-9">@Model.CategoryName</dd>
-        <dt class="col-sm-3">Proveedor</dt>
-        <dd class="col-sm-9">@Model.SupplierName</dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" />
-        <a asp-action="Index" class="btn btn-secondary">Volver</a>
-    </form>
+                    <div class="row">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Name" />
+                            }
+                            else
+                            {
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 200px">
+                                    <i class="fas fa-image fa-3x text-muted"></i>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title mb-3">@Model.Name</h5>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">ID:</dt>
+                                <dd class="col-sm-8">@Model.Id</dd>
+                                
+                                <dt class="col-sm-4">Descripción:</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+                                
+                                <dt class="col-sm-4">Precio:</dt>
+                                <dd class="col-sm-8 fw-bold text-primary">@Model.Price.ToString("C")</dd>
+                                
+                                <dt class="col-sm-4">Stock:</dt>
+                                <dd class="col-sm-8">@Model.Stock unidades</dd>
+                                
+                                <dt class="col-sm-4">Categoría:</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-secondary">@Model.CategoryName</span>
+                                </dd>
+                                
+                                <dt class="col-sm-4">Proveedor:</dt>
+                                <dd class="col-sm-8">@Model.SupplierName</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <form asp-action="Delete" class="mt-4 pt-3 border-top">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt me-2"></i>Eliminar Permanentemente
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

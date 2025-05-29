@@ -146,20 +146,56 @@ namespace SuperBodega.AdminWeb.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            try
             {
+                // Similar al método Create, necesitamos obtener los nombres
                 var client = _clientFactory.CreateClient("SuperBodegaAPI");
+                
+                // Obtener el nombre de la categoría
+                var categoryResponse = await client.GetAsync($"api/categories/{product.CategoryId}");
+                if (categoryResponse.IsSuccessStatusCode)
+                {
+                    var categoryContent = await categoryResponse.Content.ReadAsStringAsync();
+                    var category = JsonSerializer.Deserialize<CategoryViewModel>(categoryContent,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    product.CategoryName = category.Name;
+                }
+                
+                // Obtener el nombre del proveedor
+                var supplierResponse = await client.GetAsync($"api/suppliers/{product.SupplierId}");
+                if (supplierResponse.IsSuccessStatusCode)
+                {
+                    var supplierContent = await supplierResponse.Content.ReadAsStringAsync();
+                    var supplier = JsonSerializer.Deserialize<SupplierViewModel>(supplierContent,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    product.SupplierName = supplier.Name;
+                }
+                
+                // Registrar los datos que estamos enviando para depuración
                 var json = JsonSerializer.Serialize(product);
+                _logger.LogInformation("Enviando datos de producto para actualizar: {Json}", json);
+                
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.PutAsync($"api/products/{id}", content);
-
                 if (response.IsSuccessStatusCode)
                 {
+                    _logger.LogInformation("Producto actualizado correctamente");
                     return RedirectToAction(nameof(Index));
                 }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    _logger.LogError("Error al actualizar producto: {StatusCode}, {Error}", 
+                        response.StatusCode, errorContent);
+                    
+                    ModelState.AddModelError("", $"Error al actualizar producto: {errorContent}");
+                }
             }
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Excepción al actualizar producto");
+                ModelState.AddModelError("", "Error al actualizar producto. Detalles: " + ex.Message);
+            }
             await LoadViewBagData();
             return View(product);
         }

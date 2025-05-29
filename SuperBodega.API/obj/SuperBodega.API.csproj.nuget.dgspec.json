@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.API\\SuperBodega.API.csproj": {}
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.API\\SuperBodega.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.API\\SuperBodega.API.csproj": {
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.API\\SuperBodega.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.API\\SuperBodega.API.csproj",
+        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.API\\SuperBodega.API.csproj",
         "projectName": "SuperBodega.API",
-        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.API\\SuperBodega.API.csproj",
+        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.API\\SuperBodega.API.csproj",
         "packagesPath": "C:\\Users\\Enyt9\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.API\\obj\\",
+        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Enyt9\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,11 +26,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj": {
-                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj"
+              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj": {
+                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj"
               },
-              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj"
+              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj"
               }
             }
           }
@@ -105,14 +105,14 @@
         }
       }
     },
-    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj": {
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj",
         "projectName": "SuperBodega.Core",
-        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj",
+        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj",
         "packagesPath": "C:\\Users\\Enyt9\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\obj\\",
+        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Enyt9\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -164,14 +164,14 @@
         }
       }
     },
-    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
         "projectName": "SuperBodega.Infrastructure",
-        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Enyt9\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Enyt9\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -186,8 +186,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj": {
-                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.Core\\SuperBodega.Core.csproj"
+              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj": {
+                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj"
               }
             }
           }

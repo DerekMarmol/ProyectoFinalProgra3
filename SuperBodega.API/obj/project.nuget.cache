@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "90+i5oDQt1w=",
+  "dgSpecHash": "BlUopd574zk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\Bodega\\RespaldoBodega\\SuperBodega.API\\SuperBodega.API.csproj",
+  "projectFilePath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.API\\SuperBodega.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Enyt9\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Enyt9\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

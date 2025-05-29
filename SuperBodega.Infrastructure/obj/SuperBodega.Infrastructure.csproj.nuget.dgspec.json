@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {}
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
-        "projectName": "SuperBodega.Infrastructure",
-        "projectPath": "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\jakuj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\obj\\",
+        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj",
+        "projectName": "SuperBodega.Core",
+        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj",
+        "packagesPath": "C:\\Users\\Enyt9\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jakuj\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Enyt9\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -26,6 +26,69 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
+        "projectName": "SuperBodega.Infrastructure",
+        "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Enyt9\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Enyt9\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj": {
+                "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -87,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

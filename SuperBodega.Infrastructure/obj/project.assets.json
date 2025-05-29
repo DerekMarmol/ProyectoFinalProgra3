@@ -1774,6 +1774,16 @@
             "rid": "win"
           }
         }
+      },
+      "SuperBodega.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/SuperBodega.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SuperBodega.Core.dll": {}
+        }
       }
     }
   },
@@ -5348,6 +5358,11 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "SuperBodega.Core/1.0.0": {
+      "type": "project",
+      "path": "../SuperBodega.Core/SuperBodega.Core.csproj",
+      "msbuildProject": "../SuperBodega.Core/SuperBodega.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5357,23 +5372,24 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.3",
       "RabbitMQ.Client >= 6.5.0",
+      "SuperBodega.Core >= 1.0.0",
       "Swashbuckle.AspNetCore >= 8.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jakuj\\.nuget\\packages\\": {}
+    "C:\\Users\\Enyt9\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
       "projectName": "SuperBodega.Infrastructure",
-      "projectPath": "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\jakuj\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jakuj\\Desktop\\Nueva carpeta (2)\\PrograD\\SuperBodega.Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\SuperBodega.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Enyt9\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jakuj\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Enyt9\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -5384,7 +5400,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj": {
+              "projectPath": "C:\\Users\\Enyt9\\OneDrive\\Documentos\\ProyectoFinalGitHub\\ProyectoFinalProgra3\\SuperBodega.Core\\SuperBodega.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -5446,7 +5466,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

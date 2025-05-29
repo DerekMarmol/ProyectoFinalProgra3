@@ -9,61 +9,61 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SuperBodega.ECommerceWeb
 build_property.RootNamespace = SuperBodega.ECommerceWeb
-build_property.ProjectDir = C:\Users\dieg0\OneDrive\Escritorio\ProyectoFinalGithub\ProyectoFinalProgra3\SuperBodega.ECommerceWeb\
+build_property.ProjectDir = C:\Users\Enyt9\OneDrive\Documentos\ProyectoFinalGitHub\ProyectoFinalProgra3\SuperBodega.ECommerceWeb\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\dieg0\OneDrive\Escritorio\ProyectoFinalGithub\ProyectoFinalProgra3\SuperBodega.ECommerceWeb
+build_property.MSBuildProjectDirectory = C:\Users\Enyt9\OneDrive\Documentos\ProyectoFinalGitHub\ProyectoFinalProgra3\SuperBodega.ECommerceWeb
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Cart/Checkout.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Cart/Checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Cart/Index.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Cart/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Cart/OrderConfirmation.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Cart/OrderConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxPcmRlckNvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Home/Index.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Home/Privacy.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shared/Error.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shop/Details.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shop/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shop/Index.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shop/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/_ViewImports.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/_ViewStart.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dieg0/OneDrive/Escritorio/ProyectoFinalGithub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shared/_Layout.cshtml]
+[C:/Users/Enyt9/OneDrive/Documentos/ProyectoFinalGitHub/ProyectoFinalProgra3/SuperBodega.ECommerceWeb/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-mfvmlm57oz

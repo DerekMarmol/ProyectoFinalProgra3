@@ -1,8 +1,227 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SuperBodega.AdminWeb.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Panel de Administración";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-primary text-white shadow-sm">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-speedometer2 fs-1 me-3"></i>
+                    <div>
+                        <h2 class="mb-0">Panel de Administración</h2>
+                        <p class="mb-0 opacity-75">Bienvenido al sistema de gestión de SuperBodega</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="row mb-4">
+    <div class="col-md-3 mb-4 mb-md-0">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-tags fs-1 text-primary"></i>
+                </div>
+                <h3 class="card-title h5">Categorías</h3>
+                <p class="card-text">Gestiona las categorías de productos de tu tienda.</p>
+                <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-primary mt-2">
+                    <i class="bi bi-arrow-right me-1"></i> Administrar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4 mb-md-0">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-box-seam fs-1 text-success"></i>
+                </div>
+                <h3 class="card-title h5">Productos</h3>
+                <p class="card-text">Administra el inventario y los productos disponibles.</p>
+                <a asp-controller="Products" asp-action="Index" class="btn btn-outline-success mt-2">
+                    <i class="bi bi-arrow-right me-1"></i> Administrar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4 mb-md-0">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-truck fs-1 text-warning"></i>
+                </div>
+                <h3 class="card-title h5">Proveedores</h3>
+                <p class="card-text">Gestiona la información de tus proveedores.</p>
+                <a asp-controller="Suppliers" asp-action="Index" class="btn btn-outline-warning mt-2">
+                    <i class="bi bi-arrow-right me-1"></i> Administrar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-graph-up fs-1 text-info"></i>
+                </div>
+                <h3 class="card-title h5">Reportes</h3>
+                <p class="card-text">Visualiza estadísticas y reportes del sistema.</p>
+                <a href="#" class="btn btn-outline-info mt-2">
+                    <i class="bi bi-arrow-right me-1"></i> Ver Reportes
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mb-4 mb-md-0">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Actividad Reciente</h5>
+                <span class="badge bg-primary">Hoy</span>
+            </div>
+            <div class="list-group list-group-flush">
+                @if (Model.RecentActivities.Any())
+                {
+                    @foreach (var activity in Model.RecentActivities)
+                    {
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                    @switch (activity.ActivityType)
+                                    {
+                                        case "product":
+                                            <i class="bi bi-box-seam text-primary me-2"></i>
+                                            @if (activity.Action == "added")
+                                            {
+                                                <span>Nuevo producto agregado</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Producto actualizado</span>
+                                            }
+                                            break;
+                                        case "category":
+                                            <i class="bi bi-tags text-warning me-2"></i>
+                                            <span>Categoría actualizada</span>
+                                            break;
+                                        case "supplier":
+                                            <i class="bi bi-truck text-success me-2"></i>
+                                            <span>Nuevo proveedor</span>
+                                            break;
+                                        case "sale":
+                                            <i class="bi bi-cash-coin text-info me-2"></i>
+                                            <span>Venta realizada</span>
+                                            break;
+                                        default:
+                                            <i class="bi bi-activity text-secondary me-2"></i>
+                                            <span>Actividad del sistema</span>
+                                            break;
+                                    }
+                                </h6>
+                                <small class="text-muted">@GetTimeAgo(activity.Timestamp)</small>
+                            </div>
+                            <p class="mb-1">@activity.Description</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="list-group-item">
+                        <p class="mb-0 text-center">No hay actividades recientes.</p>
+                    </div>
+                }
+            </div>
+            <div class="card-footer bg-light text-center">
+                <a href="#" class="text-decoration-none">Ver todas las actividades</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Resumen del Sistema</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span><i class="bi bi-tags me-1 text-primary"></i> Categorías</span>
+                        <span class="fw-bold">@Model.CategoryCount</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: @GetPercentage(Model.CategoryCount, 20)%;" aria-valuenow="@GetPercentage(Model.CategoryCount, 20)" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span><i class="bi bi-box-seam me-1 text-success"></i> Productos</span>
+                        <span class="fw-bold">@Model.ProductCount</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: @GetPercentage(Model.ProductCount, 300)%;" aria-valuenow="@GetPercentage(Model.ProductCount, 300)" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span><i class="bi bi-truck me-1 text-warning"></i> Proveedores</span>
+                        <span class="fw-bold">@Model.SupplierCount</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: @GetPercentage(Model.SupplierCount, 20)%;" aria-valuenow="@GetPercentage(Model.SupplierCount, 20)" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span><i class="bi bi-cart me-1 text-info"></i> Ventas del Mes</span>
+                        <span class="fw-bold">@Model.MonthlySales.ToString("C")</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: @GetPercentage((double)Model.MonthlySales, 50000)%;" aria-valuenow="@GetPercentage((double)Model.MonthlySales, 50000)" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-light text-center">
+                <a href="#" class="text-decoration-none">Ver reportes detallados</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetTimeAgo(DateTime timestamp)
+    {
+        var span = DateTime.Now - timestamp;
+        
+        if (span.TotalDays > 1)
+            return $"Hace {(int)span.TotalDays} días";
+        if (span.TotalHours > 1)
+            return $"Hace {(int)span.TotalHours} horas";
+        if (span.TotalMinutes > 1)
+            return $"Hace {(int)span.TotalMinutes} minutos";
+            
+        return "Hace un momento";
+    }
+    
+    public int GetPercentage(int value, int max)
+    {
+        if (max <= 0) return 0;
+        var percentage = (value * 100) / max;
+        return Math.Min(percentage, 100);
+    }
+    
+    public int GetPercentage(double value, double max)
+    {
+        if (max <= 0) return 0;
+        var percentage = (int)((value * 100) / max);
+        return Math.Min(percentage, 100);
+    }
+}
