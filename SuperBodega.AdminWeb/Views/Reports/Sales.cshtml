@@ -1,0 +1,265 @@
+@model SuperBodega.AdminWeb.Models.Reports.SalesReportViewModel
+@{
+    ViewData["Title"] = "Reporte de Ventas";
+    var filter = ViewBag.Filter as SuperBodega.AdminWeb.Models.Reports.ReportFilterViewModel ?? new SuperBodega.AdminWeb.Models.Reports.ReportFilterViewModel();
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-chart-line me-2"></i>Reporte de Ventas
+        </h1>
+        <div>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+                <i class="fas fa-filter me-2"></i>Filtros
+            </button>
+            <a href="@Url.Action("ExportSales", "Reports", new { startDate = Model.StartDate, endDate = Model.EndDate })" class="btn btn-success">
+                <i class="fas fa-download me-2"></i>Exportar
+            </a>
+        </div>
+    </div>
+
+    <!-- Resumen General -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Ventas Totales</h6>
+                            <h4>@Model.TotalSales.ToString("C")</h4>
+                        </div>
+                        <i class="fas fa-dollar-sign fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Total Órdenes</h6>
+                            <h4>@Model.TotalOrders</h4>
+                        </div>
+                        <i class="fas fa-shopping-cart fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Valor Promedio</h6>
+                            <h4>@Model.AverageOrderValue.ToString("C")</h4>
+                        </div>
+                        <i class="fas fa-chart-bar fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Período</h6>
+                            <small>@Model.StartDate.ToString("dd/MM") - @Model.EndDate.ToString("dd/MM")</small>
+                        </div>
+                        <i class="fas fa-calendar fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de Ventas Diarias -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Ventas Diarias</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="salesChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Productos y Categorías -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Top Productos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Ingresos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.TopProducts.Take(5))
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>@product.ProductName</strong><br>
+                                            <small class="text-muted">@product.CategoryName</small>
+                                        </td>
+                                        <td>@product.QuantitySold</td>
+                                        <td>@product.TotalRevenue.ToString("C")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Ventas por Categoría</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="categoryChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Filtros -->
+<div class="modal fade" id="filterModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="Sales" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filtros de Reporte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label asp-for="@filter.Period" class="form-label">Período</label>
+                        <select asp-for="@filter.Period" class="form-select" id="periodSelect">
+                            <option value="Today">Hoy</option>
+                            <option value="Yesterday">Ayer</option>
+                            <option value="Last7Days">Últimos 7 días</option>
+                            <option value="Last30Days" selected>Últimos 30 días</option>
+                            <option value="LastMonth">Mes pasado</option>
+                            <option value="Last3Months">Últimos 3 meses</option>
+                            <option value="Last6Months">Últimos 6 meses</option>
+                            <option value="LastYear">Último año</option>
+                            <option value="Custom">Personalizado</option>
+                        </select>
+                    </div>
+                    <div id="customDates" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@filter.StartDate" class="form-label">Fecha Inicio</label>
+                                <input asp-for="@filter.StartDate" type="date" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@filter.EndDate" class="form-label">Fecha Fin</label>
+                                <input asp-for="@filter.EndDate" type="date" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Gráfico de ventas diarias
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.DailySales.Select(d => d.Date.ToString("dd/MM")))),
+                datasets: [{
+                    label: 'Ventas',
+                    data: @Html.Raw(Json.Serialize(Model.DailySales.Select(d => d.Amount))),
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de categorías (donut)
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        const categoryChart = new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.SalesByCategory.Select(c => c.CategoryName))),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(Model.SalesByCategory.Select(c => c.TotalSales))),
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF',
+                        '#FF9F40'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ':  + context.parsed.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Control del selector de período
+        document.getElementById('periodSelect').addEventListener('change', function() {
+            const customDates = document.getElementById('customDates');
+            if (this.value === 'Custom') {
+                customDates.style.display = 'block';
+            } else {
+                customDates.style.display = 'none';
+            }
+        });
+    </script>
+}

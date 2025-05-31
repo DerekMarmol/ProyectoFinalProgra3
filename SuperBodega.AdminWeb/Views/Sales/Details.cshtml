@@ -1,0 +1,148 @@
+@model SuperBodega.AdminWeb.Models.SaleViewModel
+@{
+    ViewData["Title"] = $"Venta #{Model.Reference}";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-receipt me-2"></i>Venta #@Model.Reference
+        </h1>
+        <div>
+            <a href="@Url.Action("Index", "Sales")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Información de la Venta -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Información General</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>ID:</strong> @Model.Id</p>
+                            <p><strong>Referencia:</strong> <code>@Model.Reference</code></p>
+                            <p><strong>Cliente:</strong> @Model.CustomerName</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Fecha:</strong> @Model.SaleDate.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p><strong>Total:</strong> <span class="text-success fw-bold">@Model.TotalAmount.ToString("C")</span></p>
+                            <p><strong>Estado:</strong> 
+                                @switch (Model.Status)
+                                {
+                                    case 0: <span class="badge bg-warning">Pendiente</span> break;
+                                    case 1: <span class="badge bg-info">Procesando</span> break;
+                                    case 2: <span class="badge bg-primary">Enviado</span> break;
+                                    case 3: <span class="badge bg-success">Entregado</span> break;
+                                    case 4: <span class="badge bg-danger">Cancelado</span> break;
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles de Productos -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Productos</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.SaleDetails != null && Model.SaleDetails.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unit.</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in Model.SaleDetails)
+                                    {
+                                        <tr>
+                                            <td>@detail.ProductName</td>
+                                            <td>@detail.Quantity</td>
+                                            <td>@detail.UnitPrice.ToString("C")</td>
+                                            <td>@detail.TotalPrice.ToString("C")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-active">
+                                        <td colspan="3"><strong>Total:</strong></td>
+                                        <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay detalles de productos disponibles.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Acciones Rápidas -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Acciones</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Status == 0) // Pendiente
+                    {
+                        <form asp-action="UpdateStatus" method="post" class="mb-2">
+                            <input type="hidden" name="saleId" value="@Model.Id" />
+                            <input type="hidden" name="newStatus" value="1" />
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-play me-2"></i>Procesar Venta
+                            </button>
+                        </form>
+                        <form asp-action="UpdateStatus" method="post">
+                            <input type="hidden" name="saleId" value="@Model.Id" />
+                            <input type="hidden" name="newStatus" value="4" />
+                            <button type="submit" class="btn btn-danger w-100" onclick="return confirm('¿Está seguro de cancelar esta venta?')">
+                                <i class="fas fa-times me-2"></i>Cancelar Venta
+                            </button>
+                        </form>
+                    }
+                    else if (Model.Status == 1) // Procesando
+                    {
+                        <form asp-action="UpdateStatus" method="post">
+                            <input type="hidden" name="saleId" value="@Model.Id" />
+                            <input type="hidden" name="newStatus" value="2" />
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-truck me-2"></i>Marcar como Enviado
+                            </button>
+                        </form>
+                    }
+                    else if (Model.Status == 2) // Enviado
+                    {
+                        <form asp-action="UpdateStatus" method="post">
+                            <input type="hidden" name="saleId" value="@Model.Id" />
+                            <input type="hidden" name="newStatus" value="3" />
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-check me-2"></i>Marcar como Entregado
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay acciones disponibles para este estado.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

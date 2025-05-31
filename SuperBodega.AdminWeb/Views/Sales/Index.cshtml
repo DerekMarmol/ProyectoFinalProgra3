@@ -1,0 +1,162 @@
+@model IEnumerable<SuperBodega.AdminWeb.Models.SaleViewModel>
+@{
+    ViewData["Title"] = "Gestión de Ventas";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-shopping-cart me-2"></i>Gestión de Ventas
+        </h1>
+        <div>
+            <a href="@Url.Action("Pending", "Sales")" class="btn btn-warning">
+                <i class="fas fa-clock me-2"></i>Ver Pendientes
+            </a>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Volver
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Referencia</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var sale in Model.OrderByDescending(s => s.SaleDate))
+                        {
+                            <tr>
+                                <td>@sale.Id</td>
+                                <td>
+                                    <code>@sale.Reference</code>
+                                </td>
+                                <td>
+                                    <strong>@sale.CustomerName</strong>
+                                </td>
+                                <td>@sale.SaleDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <strong class="text-success">@sale.TotalAmount.ToString("C")</strong>
+                                </td>
+                                <td>
+                                    @switch (sale.Status)
+                                    {
+                                        case 0:
+                                            <span class="badge bg-warning">Pendiente</span>
+                                            break;
+                                        case 1:
+                                            <span class="badge bg-info">Procesando</span>
+                                            break;
+                                        case 2:
+                                            <span class="badge bg-primary">Enviado</span>
+                                            break;
+                                        case 3:
+                                            <span class="badge bg-success">Entregado</span>
+                                            break;
+                                        case 4:
+                                            <span class="badge bg-danger">Cancelado</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-secondary">Desconocido</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("Details", "Sales", new { id = sale.Id })" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        @if (sale.Status == 0) // Pendiente
+                                        {
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                    <i class="fas fa-cog"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                                            <input type="hidden" name="saleId" value="@sale.Id" />
+                                                            <input type="hidden" name="newStatus" value="1" />
+                                                            <button type="submit" class="dropdown-item">
+                                                                <i class="fas fa-play text-info me-2"></i>Procesar
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                                            <input type="hidden" name="saleId" value="@sale.Id" />
+                                                            <input type="hidden" name="newStatus" value="4" />
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="fas fa-times text-danger me-2"></i>Cancelar
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        else if (sale.Status == 1) // Procesando
+                                        {
+                                            <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                                <input type="hidden" name="saleId" value="@sale.Id" />
+                                                <input type="hidden" name="newStatus" value="2" />
+                                                <button type="submit" class="btn btn-sm btn-primary" title="Marcar como Enviado">
+                                                    <i class="fas fa-truck"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                        else if (sale.Status == 2) // Enviado
+                                        {
+                                            <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                                <input type="hidden" name="saleId" value="@sale.Id" />
+                                                <input type="hidden" name="newStatus" value="3" />
+                                                <button type="submit" class="btn btn-sm btn-success" title="Marcar como Entregado">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No hay ventas registradas</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

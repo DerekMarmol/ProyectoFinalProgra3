@@ -1,0 +1,193 @@
+@model SuperBodega.AdminWeb.Models.Reports.DashboardSummaryViewModel
+@{
+    ViewData["Title"] = "Dashboard Ejecutivo";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-tachometer-alt me-2"></i>Dashboard Ejecutivo
+        </h1>
+        <div>
+            <button class="btn btn-outline-primary" onclick="location.reload()">
+                <i class="fas fa-sync-alt me-2"></i>Actualizar
+            </button>
+            <a href="@Url.Action("Index", "Reports")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Métricas Principales -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card bg-gradient-primary text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-uppercase mb-1">Ventas Hoy</h6>
+                            <h3 class="mb-0">@Model.TodaySales.ToString("C")</h3>
+                            <small class="opacity-75">Actualizado: @DateTime.Now.ToString("HH:mm")</small>
+                        </div>
+                        <i class="fas fa-calendar-day fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card bg-gradient-success text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-uppercase mb-1">Ventas del Mes</h6>
+                            <h3 class="mb-0">@Model.MonthSales.ToString("C")</h3>
+                            <small class="opacity-75">
+                                @if (Model.GrowthPercentage > 0)
+                                {
+                                    <text><i class="fas fa-arrow-up"></i> @(Model.GrowthPercentage.ToString("F1"))%</text>
+                                }
+                                else if (Model.GrowthPercentage < 0)
+                                {
+                                    <text><i class="fas fa-arrow-down"></i> @(Math.Abs(Model.GrowthPercentage).ToString("F1"))%</text>
+                                }
+                                else
+                                {
+                                    <text><i class="fas fa-minus"></i> 0%</text>
+                                }
+                                vs mes anterior
+                            </small>
+                        </div>
+                        <i class="fas fa-chart-line fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card bg-gradient-info text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-uppercase mb-1">Órdenes Totales</h6>
+                            <h3 class="mb-0">@Model.TotalOrders</h3>
+                            <small class="opacity-75">
+                                @Model.PendingOrders pendientes
+                            </small>
+                        </div>
+                        <i class="fas fa-shopping-cart fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card bg-gradient-warning text-dark h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title text-uppercase mb-1">Total Clientes</h6>
+                            <h3 class="mb-0">@Model.TotalCustomers</h3>
+                            <small class="opacity-75">Base de clientes</small>
+                        </div>
+                        <i class="fas fa-users fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alertas y Notificaciones -->
+    @if (Model.LowStockProducts > 0 || Model.PendingOrders > 0)
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-warning">
+                    <div class="card-header bg-warning">
+                        <h5 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Alertas y Notificaciones
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @if (Model.LowStockProducts > 0)
+                            {
+                                <div class="col-md-6">
+                                    <div class="alert alert-warning mb-0">
+                                        <i class="fas fa-boxes me-2"></i>
+                                        <strong>@Model.LowStockProducts productos</strong> con stock bajo
+                                        <a href="@Url.Action("Inventory", "Reports")" class="alert-link ms-2">Ver detalles</a>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.PendingOrders > 0)
+                            {
+                                <div class="col-md-6">
+                                    <div class="alert alert-info mb-0">
+                                        <i class="fas fa-clock me-2"></i>
+                                        <strong>@Model.PendingOrders órdenes</strong> pendientes de procesamiento
+                                        <a href="@Url.Action("Index", "Sales")" class="alert-link ms-2">Procesar</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Accesos Rápidos -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Accesos Rápidos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a href="@Url.Action("Sales", "Reports")" class="btn btn-outline-primary w-100 py-3">
+                                <i class="fas fa-chart-line fa-2x d-block mb-2"></i>
+                                Reporte de Ventas
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="@Url.Action("Inventory", "Reports")" class="btn btn-outline-success w-100 py-3">
+                                <i class="fas fa-boxes fa-2x d-block mb-2"></i>
+                                Inventario
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="@Url.Action("Index", "Products")" class="btn btn-outline-info w-100 py-3">
+                                <i class="fas fa-plus fa-2x d-block mb-2"></i>
+                                Nuevo Producto
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="@Url.Action("Index", "Categories")" class="btn btn-outline-warning w-100 py-3">
+                                <i class="fas fa-tags fa-2x d-block mb-2"></i>
+                                Gestionar Categorías
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #007bff, #0056b3);
+    }
+    .bg-gradient-success {
+        background: linear-gradient(45deg, #28a745, #1e7e34);
+    }
+    .bg-gradient-info {
+        background: linear-gradient(45deg, #17a2b8, #117a8b);
+    }
+    .bg-gradient-warning {
+        background: linear-gradient(45deg, #ffc107, #e0a800);
+    }
+</style>

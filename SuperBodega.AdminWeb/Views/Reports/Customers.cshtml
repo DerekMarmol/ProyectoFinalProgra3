@@ -1,0 +1,277 @@
+@model SuperBodega.AdminWeb.Models.Reports.CustomersReportViewModel
+@{
+    ViewData["Title"] = "Reporte de Clientes";
+    var filter = ViewBag.Filter as SuperBodega.AdminWeb.Models.Reports.ReportFilterViewModel ?? new SuperBodega.AdminWeb.Models.Reports.ReportFilterViewModel();
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-users me-2"></i>Reporte de Clientes
+        </h1>
+        <div>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+                <i class="fas fa-filter me-2"></i>Filtros
+            </button>
+            <a href="@Url.Action("Index", "Reports")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Resumen General -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Total Clientes</h6>
+                            <h4>@Model.TotalCustomers</h4>
+                        </div>
+                        <i class="fas fa-users fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Nuevos este Mes</h6>
+                            <h4>@Model.NewCustomersThisMonth</h4>
+                        </div>
+                        <i class="fas fa-user-plus fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Clientes Activos</h6>
+                            <h4>@Model.ActiveCustomers</h4>
+                        </div>
+                        <i class="fas fa-user-check fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Valor Promedio</h6>
+                            <h4>@Model.AverageCustomerValue.ToString("C")</h4>
+                        </div>
+                        <i class="fas fa-dollar-sign fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de Crecimiento -->
+    @if (Model.CustomerGrowth.Any())
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Crecimiento de Clientes</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="customerGrowthChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Top Clientes -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Top 10 - Mejores Clientes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Posición</th>
+                                    <th>Cliente</th>
+                                    <th>Email</th>
+                                    <th>Total Órdenes</th>
+                                    <th>Total Gastado</th>
+                                    <th>Última Compra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int position = 1; }
+                                @foreach (var customer in Model.TopCustomers)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary">#@position</span>
+                                        </td>
+                                        <td>
+                                            <strong>@customer.CustomerName</strong>
+                                        </td>
+                                        <td>
+                                            <a href="mailto:@customer.Email">@customer.Email</a>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">@customer.TotalOrders</span>
+                                        </td>
+                                        <td>
+                                            <strong class="text-success">@customer.TotalSpent.ToString("C")</strong>
+                                        </td>
+                                        <td>@customer.LastOrderDate.ToString("dd/MM/yyyy")</td>
+                                    </tr>
+                                    position++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Filtros -->
+<div class="modal fade" id="filterModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="Customers" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filtros de Reporte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label asp-for="@filter.Period" class="form-label">Período</label>
+                        <select asp-for="@filter.Period" class="form-select" id="periodSelect">
+                            <option value="Today">Hoy</option>
+                            <option value="Yesterday">Ayer</option>
+                            <option value="Last7Days">Últimos 7 días</option>
+                            <option value="Last30Days" selected>Últimos 30 días</option>
+                            <option value="LastMonth">Mes pasado</option>
+                            <option value="Last3Months">Últimos 3 meses</option>
+                            <option value="Last6Months">Últimos 6 meses</option>
+                            <option value="LastYear">Último año</option>
+                            <option value="Custom">Personalizado</option>
+                        </select>
+                    </div>
+                    <div id="customDates" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@filter.StartDate" class="form-label">Fecha Inicio</label>
+                                <input asp-for="@filter.StartDate" type="date" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@filter.EndDate" class="form-label">Fecha Fin</label>
+                                <input asp-for="@filter.EndDate" type="date" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        @if (Model.CustomerGrowth.Any())
+        {
+            <text>
+            // Gráfico de crecimiento de clientes
+            const customerGrowthCtx = document.getElementById('customerGrowthChart').getContext('2d');
+            const customerGrowthChart = new Chart(customerGrowthCtx, {
+                type: 'line',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(Model.CustomerGrowth.Select(c => c.Month.ToString("MMM yyyy")))),
+                    datasets: [
+                        {
+                            label: 'Nuevos Clientes',
+                            data: @Html.Raw(Json.Serialize(Model.CustomerGrowth.Select(c => c.NewCustomers))),
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                            tension: 0.1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Total Acumulado',
+                            data: @Html.Raw(Json.Serialize(Model.CustomerGrowth.Select(c => c.TotalCustomers))),
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                            tension: 0.1,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Mes'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Nuevos Clientes'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Total Acumulado'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        }
+                    }
+                }
+            });
+            </text>
+        }
+
+        // Control del selector de período
+        document.getElementById('periodSelect').addEventListener('change', function() {
+            const customDates = document.getElementById('customDates');
+            if (this.value === 'Custom') {
+                customDates.style.display = 'block';
+            } else {
+                customDates.style.display = 'none';
+            }
+        });
+    </script>
+}

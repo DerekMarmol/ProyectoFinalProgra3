@@ -37,20 +37,20 @@ namespace SuperBodega.Infrastructure
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IPurchaseService, PurchaseService>();
             services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IAsyncSaleService, AsyncSaleService>();
+            
+            // Servicios de Reportes
+            services.AddScoped<IReportService, ReportService>();
 
             // Messaging
             services.AddSingleton<IMessagePublisher, RabbitMQPublisher>();
             services.AddSingleton<IMessageConsumer, RabbitMQConsumer>();
 
-            // Agregar esto a ServiceRegistration.cs
-            services.AddScoped<IAsyncSaleService, AsyncSaleService>();
-
-            // Añadir a ServiceRegistration.cs
+            // Email y Notifications
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<NotificationService>();
 
-            // Añadir a ServiceRegistration.cs
-            services.AddScoped<ICartService, CartService>();
             return services;
         }
     }

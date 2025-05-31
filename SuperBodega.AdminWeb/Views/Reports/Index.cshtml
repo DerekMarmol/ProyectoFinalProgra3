@@ -1,0 +1,91 @@
+@{
+    ViewData["Title"] = "Centro de Reportes";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">
+            <i class="fas fa-chart-bar me-2"></i>Centro de Reportes
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-chart-line fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="card-title">Reporte de Ventas</h5>
+                    <p class="card-text">Análisis detallado de ventas, tendencias y rendimiento por períodos.</p>
+                    <a href="@Url.Action("Sales", "Reports")" class="btn btn-primary">
+                        <i class="fas fa-eye me-2"></i>Ver Reporte
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="bg-success bg-opacity-10 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-boxes fa-2x text-success"></i>
+                    </div>
+                    <h5 class="card-title">Reporte de Inventario</h5>
+                    <p class="card-text">Estado del inventario, productos con bajo stock y valorización.</p>
+                    <a href="@Url.Action("Inventory", "Reports")" class="btn btn-success">
+                        <i class="fas fa-eye me-2"></i>Ver Reporte
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="bg-info bg-opacity-10 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-users fa-2x text-info"></i>
+                    </div>
+                    <h5 class="card-title">Reporte de Clientes</h5>
+                    <p class="card-text">Análisis de clientes, crecimiento y comportamiento de compra.</p>
+                    <a href="@Url.Action("Customers", "Reports")" class="btn btn-info">
+                        <i class="fas fa-eye me-2"></i>Ver Reporte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-tachometer-alt fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Dashboard Ejecutivo</h5>
+                    <p class="card-text">Vista general con métricas clave del negocio.</p>
+                    <a href="@Url.Action("Dashboard", "Reports")" class="btn btn-warning">
+                        <i class="fas fa-eye me-2"></i>Ver Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-download fa-3x text-secondary mb-3"></i>
+                    <h5 class="card-title">Exportar Reportes</h5>
+                    <p class="card-text">Descarga reportes en formato Excel o PDF.</p>
+                    <div class="btn-group">
+                        <a href="@Url.Action("ExportSales", "Reports", new { format = "excel" })" class="btn btn-outline-secondary">
+                            <i class="fas fa-file-excel me-2"></i>Excel
+                        </a>
+                        <a href="@Url.Action("ExportSales", "Reports", new { format = "pdf" })" class="btn btn-outline-secondary">
+                            <i class="fas fa-file-pdf me-2"></i>PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
